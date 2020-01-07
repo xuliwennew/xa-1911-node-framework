@@ -1,0 +1,15 @@
+{
+  "name": "xa-1911-node",
+  "version": "1.0.0",
+  "description": "xxx",
+  "main": "webpack entry-----打包入口",
+  "scripts": {
+     "start":"node 01-helloworld.js",
+      
+  },
+  "keywords": [
+    "xa-node-1911"
+  ],
+  "author": "xlw",
+  "license": "MIT"
+}
