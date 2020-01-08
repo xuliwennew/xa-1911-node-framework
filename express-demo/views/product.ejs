@@ -2,10 +2,31 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
   </head>
   <body>
     <h1><%= title %></h1>
-   
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">课程图片</th>
+          <th scope="col">课程名</th>
+          <th scope="col">介绍</th>
+          <th scope="col">学员号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0;i<list.length;i++) {%>
+        <tr>
+          <th scope="row">
+            <img width="100" src="<%=list[i].pic%>" />
+          </th>
+          <td><%=list[i].name%></td>
+          <td><%=list[i].short_description%></td>
+          <td><%=list[i].numbers%></td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
   </body>
 </html>

@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const axios = require("axios")
 
-/* GET home page. */  // promoise generator async await 
-router.get('/', (req, res, next)=> {
-    //res.render 页面
-    //res.json jsonp
-   res.json({
-       title:"apple"
-   })
+/* GET home page. */ 
+router.get('/', async (req, res, next)=> {
+   //const courselist = require("../mock/data.json").data.courselist
+   let list = await axios.get("https://m.imooc.com/wap/api/course/loadCourseList?marking=all&course_type=0&easy_type=&order=2&pageIndex=1&flag=&ex_learned=0")
+   console.log(list)
+   res.render("product",{title:"商品列表",list:list.data.data.courselist})
 });
 
 // /product/add
