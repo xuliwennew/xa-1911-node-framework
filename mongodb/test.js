@@ -11,6 +11,7 @@ mongoose.connection.on("connected", () => {
   console.log("mongodb connect success!");
 });
 
+//监听mongodb是否打开
 mongoose.connection.once("open", () => {
   console.log("mongodb connect opened!");
 });
@@ -19,7 +20,8 @@ mongoose.connection.once("open", () => {
 // 3.1 创建一个node中的users对象,(schema key : string)
 let usersSchema = new mongoose.Schema({
   name: String,
-  age: Number
+  age: Number,
+  pwd:String
 });
 
 //3.2 把userSchema 和 集合绑定在一起
@@ -29,8 +31,9 @@ let UsersModel = mongoose.model("users", usersSchema); // usersModel -> mapping 
 //4.1 添加一个doc
 let addUser = () => {
   let user = new UsersModel({
-    name: "李四",
-    age: 30
+    name: "lisi",
+    age: 20,
+    pwd:require("crypto").createHash('md5').update("987654").digest('hex')
   });
 
   user.save((err, results) => {
@@ -56,7 +59,8 @@ let delUser = ()=>{
 
 //查询dom
 let findUser = ()=>{
-    UsersModel.find({},(err,results)=>{
+    let pwd = require("crypto").createHash('md5').update("123").digest('hex')
+    UsersModel.find({pwd:pwd},(err,results)=>{
         console.log(results)
     })
 }
@@ -69,4 +73,4 @@ let findUserByPager =(pageIndex,pageSize=1)=>{
     })
 }
 
-findUserByPager(1,1)
+addUser()

@@ -4,6 +4,7 @@ const axios = require("axios")
 
 /* GET home page. */ 
 router.get('/', async (req, res, next)=> {
+  console.log(req.session.userInfo)
    //const courselist = require("../mock/data.json").data.courselist
    let list = await axios.get("https://m.imooc.com/wap/api/course/loadCourseList?marking=all&course_type=0&easy_type=&order=2&pageIndex=1&flag=&ex_learned=0")
    console.log(list)
