@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const axios = require("axios")
+const formidable = require("formidable")
 
 /* GET home page. */ 
 router.get('/', async (req, res, next)=> {
@@ -15,6 +16,17 @@ router.get('/', async (req, res, next)=> {
 router.get('/add', function(req, res, next) {
   res.render('product-add', { title: '添加商品信息' });
 });
+
+router.post('/upload', function(req, res, next) {
+   var form = new formidable.IncomingForm();
+   form.uploadDir = "public/images";
+   form.keepExtensions = true;
+   form.parse(req,function(err, fields, files){
+      console.log(files)
+      res.send(files)
+   })
+});
+
 
 
 module.exports = router;

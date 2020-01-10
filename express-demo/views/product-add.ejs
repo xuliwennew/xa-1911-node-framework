@@ -6,6 +6,9 @@
   </head>
   <body>
     <h1><%= title %></h1>
-   
+    <form method="POST" action="http://localhost:3000/product/upload" enctype="multipart/form-data">
+      <input type="file" name="f1">
+      <input type="submit" value="上传图片">
+    </form>
   </body>
 </html>

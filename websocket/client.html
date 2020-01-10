@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+       // 实例化一个WebSocket对象
+       let ws = new WebSocket("ws://localhost:8080")
+
+       //通过ws的open事件来监听连接的成功信息
+       ws.onopen = function(e){
+           console.log("连接成功了！")
+
+           ws.send("hello server!")
+       }
+
+       ws.onmessage = function(e){
+           console.log(e)
+       }
+
+    </script>
+</body>
+</html>
