@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       canvas {
+           background-color: red;
+       }
+    </style>
+</head>
+<body>
+    <canvas width="500" height="500"></canvas>
+
+    <script>
+        // 从定义好的canvas上获取绘制图型的工具类(画笔，api)
+        var canvas = document.querySelector("canvas")
+        //获取绘制图型的工具类
+        var context = canvas.getContext("2d")
+
+        context.beginPath()
+
+        //canvas提供了两支画笔 stroke fill
+        //起点   startpoint
+        context.moveTo(100,100)
+
+        //终点 N endpoint
+        context.lineTo(300,100)
+
+        context.lineTo(300,300)
+
+        context.lineTo(100,300)
+
+        context.lineTo(100,100)
+        context.closePath();
+        //画线 
+        context.stroke()
+        // context.fill()
+     
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       canvas {
+           background-color: red;
+       }
+    </style>
+</head>
+<body>
+    <canvas width="800" height="500"></canvas>
+    <button onclick="sendClear()">清空</button>
+    <script>
+
+        var websocket = new WebSocket("ws://localhost:8080")
+
+        openWs();
+
+        function openWs(){
+            websocket.onopen = function(e){
+                console.log("opened")
+            }
+        }
+
+        websocket.onmessage = function(e){
+           console.log(e.data)
+           let data = JSON.parse(e.data)
+           if(data.flag == "s"){
+               context.beginPath();
+               context.moveTo(data.x,data.y)
+           }else if(data.flag == "e"){
+               context.lineTo(data.x,data.y)
+               context.stroke()
+           }else {
+               window.location.reload()
+           }
+        }
+
+        function sendClear(){
+            websocket.send(JSON.stringify({x:0,y:0,flag:"c"}))
+        }
+
+        // 从定义好的canvas上获取绘制图型的工具类(画笔，api)
+        var canvas = document.querySelector("canvas")
+        //获取绘制图型的工具类
+        var context = canvas.getContext("2d")
+
+        context.lineWidth = 30
+        context.lineCap = "round"
+        context.lineJoin="round"
+        context.strokeStyle = "white"
+
+        canvas.onmousedown = function(e){
+
+            let startPoint = {x:e.layerX, y:e.layerY,flag:"s"}
+            websocket.send(JSON.stringify(startPoint))
+            document.onmousemove = function(e){
+                let endPoint = {x:e.layerX , y:e.layerY,flag:"e"}
+                websocket.send(JSON.stringify(endPoint))
+            }
+
+            context.closePath()
+
+            canvas.onmouseup = function(e){
+                document.onmousemove = null
+                canvas.onmouseup = null
+            }
+        }
+         
+     
+
+
+    </script>
+</body>
+</html>
